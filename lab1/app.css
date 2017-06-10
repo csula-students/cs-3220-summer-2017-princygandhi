@@ -40,3 +40,25 @@ footer p
 {
     padding: 5px;
 }
+
+.foodImg
+{
+    width:400px;
+}
+
+.myTable th
+{
+    background-color: lightgrey;
+    height: 20px;
+     
+}
+.myTable td
+{
+    text-align: center;
+    border:1px lightgray solid;
+}
+.myTable
+{
+    margin-top:5px;
+    margin-bottom: 5px;
+}

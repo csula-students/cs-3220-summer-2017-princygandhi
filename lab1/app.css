@@ -62,3 +62,21 @@ footer p
     margin-top:5px;
     margin-bottom: 5px;
 }
+
+.menuFdImg
+{
+    width:300px;
+}
+.foodnm
+{
+    float:left;
+}
+.foodprz, .menuBtn
+{
+    float: right;
+}
+
+.MenuTbl td
+{
+    /*border:1px lightgray solid;*/
+}

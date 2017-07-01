@@ -55,9 +55,21 @@ class Cart {
     }
 
     // remove an item from shopping cart
-    removeItem(item) {
+    removeItem(itemid) {
         // TODO: logic to remove an item from cart
         // call render method when the item is removed to update view
+       if (this.items != null) {
+            var newList = this.store.cartItems;
+            var compare = itemid.name;
+            debugger;
+            for (var i = 0; i < this.items.length; i++) {
+                if (this.items[i].name == compare) {
+                    newList.splice(i, 1);
+                }
+            }
+             this.store.cartItems = newList;
+             this.items = newList;
+        }
         this.render();
     }
 
@@ -72,21 +84,32 @@ class Cart {
         // using innerHTML to render a list of table row item under tbody
         tbody.innerHTML = this.renderListAsHTML(this.store.cartItems)
         let deleteButtons = this.root.querySelectorAll('.delete-button');
-       
-       
         let fakeList = this.store.cartItems;
-       
-        for (var i = 0; i < deleteButtons.length; i++) {
-            let deleteBtn = deleteButtons[i];
-            let scopedFakeList = fakeList;
-            deleteBtn.addEventListener('click', () => {
-                debugger;
-                
-                this.store.cartItems.removeItem();
-               
-            });
+         
+        for (var i = 0; i < deleteButtons.length; i ++) {
+        	let deleteBtn = deleteButtons[i];
+        	let scopedFakeList = fakeList;
+    
+
+			deleteBtn.addEventListener('click', () => {
+
+                //alert('You are deleting' + deleteBtn);
+                let item = this.items[parseInt(deleteBtn.id)];
+             
+                this.removeItem(item);
+        		// debugger;
+        		// // splice takes two arguments first being the index, second being
+        		// // the number of items removing
+        		// scopedFakeList.splice(0, 1);
+
+                //  console.log(scopedFakeList);
+				
+			});
         }
+       
     }
+  
+    
 
 	/*
 	 * Input is a list of cart items (that were added through checkout button)
@@ -97,7 +120,7 @@ class Cart {
         // replace with the for loop
         let result = "";
         for (var i = 0; i < list.length; i++) {
-            result += '<tr><td>' + list[i].name + '</td><td>' + list[i].price + '</td><td><button class="delete-button" data-id="0">Delete</button></td></tr>';
+            result += '<tr><td>' + list[i].name + '</td><td>' + list[i].price + '</td><td><button class="delete-button" id='+i+'>Delete</button></td></tr>';
         }
 
         return result;
@@ -178,8 +201,13 @@ class StatusTable {
     render() {
 
     }
+     removeAllItems() {
+        this.store.cartItems = [];
+        this.items = [];
+        this.render();
+    }
 }
-
+ 
 // DOMContentLoaded event will allow us to run the following function when
 // everything is ready. Think of the following code will only be executed by
 // the end of document
@@ -187,13 +215,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // use querySelector to find the table element (preferably by id selector)
     // let statusTable = document.querySelector('');
     // // use querySelector to find the cart element (preferably by id selector)
+   
+
     let cart = document.querySelector('.cart-table');
     let checkoutButtons = document.querySelectorAll('.checkout-button');
+
 
     let store = new Store(window.localStorage);
     // if (table) {
     //     new StatusTable(table, store);
     // }
+
+    
     if (cart) {
         new Cart(cart, store);
     }

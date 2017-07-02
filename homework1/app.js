@@ -218,7 +218,8 @@ class CheckoutButton {
             description: this.root.dataset.description,
             imageURL: this.root.dataset.imageURL,
             ingredient: this.root.dataset.ingredient,
-            quantity: this.root.dataset.quantity
+            quantity: this.root.dataset.quantity,
+            status: "In Progress"
                
 
             });
@@ -252,14 +253,16 @@ class CheckoutButton {
 class StatusTable {
     // take dom element into JavaScript class to attachment events
     constructor(root, store) {
+
+        debugger;
         this.root = root;
         this.store = store;
-        init();
+        this.init();
     }
 
     init() {
         // attach click event listener to table header row on each column
-        render();
+        this.render();
     }
 
     destroy() {
@@ -274,6 +277,29 @@ class StatusTable {
     // render rows of items under table using root.innerHTML
     render() {
 
+         let tbody = this.root.querySelector('tbody');
+          tbody.innerHTML = '';
+        let cartItems = this.store.cartItems || [];
+
+       console.log(cartItems);
+        for (var i = 0; i < cartItems.length; i++) {
+             let result = "";
+            result = 
+                '<tr>' +
+                '<td>' + cartItems[i].name +
+                '</td>' +
+                 '<td  style="text-align:center">' +
+                '<img src="' + cartItems[i].imageURL + '" width="350px"/></td>' +
+                ' <td>' + cartItems[i].quantity +
+                '</td>' +
+                ' <td>' + cartItems[i].status +
+                '</td>' +
+                ' </tr>' ;
+
+
+            tbody.innerHTML += result;
+        }
+
     }
     removeAllItems() {
         this.store.cartItems = [];
@@ -286,7 +312,7 @@ class StatusTable {
 
 class Inventory {
     constructor(root, store) {
-
+   
         this.root = root;
         this.store = store;
         this.init();
@@ -580,7 +606,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     let cart = document.querySelector('.cart-table');
-    let checkoutButtons = document.querySelectorAll('.checkout-button');
+   // let checkoutButtons = document.querySelectorAll('.checkout-button');
 
 
     let store = new Store(window.localStorage);
@@ -613,5 +639,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let menu = document.querySelector('#menu_table');
     if (menu) {
         new Menu(menu, store, cart);
+    }
+ console.log("hi");
+ 
+    let statusordertable = document.querySelector('#FinalOrder_status');
+    if (statusordertable) {
+        console.log("hi");
+        new StatusTable(statusordertable, store);
     }
 });

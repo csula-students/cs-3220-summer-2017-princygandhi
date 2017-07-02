@@ -269,19 +269,26 @@ class Inventory {
         // TODO: remove event listeners added from the init above
     }
 
-    removeItem(itemid) {
+    removeInventItem(itemid) {
         // TODO: logic to remove an item from cart
         // call render method when the item is removed to update view
-        if (this.items != null) {
-            var newList = this.store.cartItems;
+        debugger;
+        var newList = this.store.cartItems;
+        if (newList != null) {
+           // var newList = this.store.cartItems;
             var compare = itemid.name;
             debugger;
-            for (var i = 0; i < this.items.length; i++) {
-                if (this.items[i].name == compare) {
+            for (var i = 0; i < newList.length; i++) {
+                if (newList[i].name == compare) {
                     newList.splice(i, 1);
                 }
             }
+            
+
+            //Console.log(newList);
+
             this.store.cartItems = newList;
+
             this.items = newList;
         }
         this.render();
@@ -298,10 +305,10 @@ class Inventory {
              let result = "";
                 result = '<tr>'+
                             '<td width="400px">'+
-                                '<table cellpadding="15">'+
+                                '<table cellpadding="10">'+
                                     '<tr>'+
-                                    '<td>'+  cartItems[i].name +
-                                    '</td>'+
+                                    '<td><h2><b><u>'+  cartItems[i].name +
+                                    '</u></b></h2></td>'+
                                     ' </tr>'+
                                     '<tr>'+
                                         ' <td> Description: <br/>'+ cartItems[i].description +
@@ -316,7 +323,7 @@ class Inventory {
                         '<td  style="text-align:center">'+
                             '<img src="'+ cartItems[i].imageURL +'" width="350px"/></td>' +
                    '<td style="vertical-align:top">' + this.getIngredientAsHTML(cartItems[i].ingredient)  + '</td>'+
-                    '<td style="text-align:center"> <button class="deleteItem-button" id=' + i + '>Delete</button></td>'+
+                   '<td style="text-align:center"> <button class="deleteItem-button" id=' + i + '>Delete</button></td>'+
                    '</tr>';
 
                     
@@ -328,16 +335,17 @@ class Inventory {
         let fakeList = this.store.cartItems;
 
         for (var i = 0; i < deleteButtons.length; i++) {
-            let deleteBtn = deleteButtons[i];
+            let deleteBtn1 = deleteButtons[i];
             let scopedFakeList = fakeList;
+            
+        
 
+            deleteBtn1.addEventListener('click', () => {
 
-            deleteBtn.addEventListener('click', () => {
-
-                //alert('You are deleting' + deleteBtn);
-                let item = this.items[parseInt(deleteBtn.id)];
-
-                this.removeItem(item);
+               // alert('You are deleting' + this.store.cartItems[0].name);
+                let item =  this.store.cartItems[parseInt(deleteBtn1.id)];
+              
+                this.removeInventItem(item);
                 // debugger;
                 // // splice takes two arguments first being the index, second being
                 // // the number of items removing
@@ -348,10 +356,6 @@ class Inventory {
             });
         }
 
-        let removeAllButton = document.querySelector('.remove_all_button');
-        removeAllButton.addEventListener('click', () => {
-            this.removeAllItems();
-        });
     }
 
     getIngredientAsHTML(ingredientList)

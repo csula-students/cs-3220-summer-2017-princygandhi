@@ -135,15 +135,7 @@ class Cart {
             });
         }
 
-        let removeAllButton = document.querySelector('.remove_all_button');
-        removeAllButton.addEventListener('click', () => {
-            this.removeAllItems();
-        });
-
-        let confirmOrderButton = document.querySelector('.confirm_order_button');
-        confirmOrderButton.addEventListener('click', () => {
-            this.placeOrder();
-        });
+     
 
     }
 
@@ -158,7 +150,7 @@ class Cart {
         // replace with the for loop
         let result = "";
         for (var i = 0; i < list.length; i++) {
-            result += '<tr><td>' + list[i].name + '</td><td>' + list[i].price + '</td><td><button class="delete-button" id=' + i + '>Delete</button></td></tr>';
+            result += '<tr><td>' + list[i].name + '</td><td>' + list[i].price + '</td><td>' + list[i].quantity + '</td><td><button class="delete-button" id=' + i + '>Delete</button></td></tr>';
         }
 
         return result;
@@ -181,19 +173,59 @@ class Cart {
 }
 
 class CheckoutButton {
-    constructor(root, store) {
+    constructor(root, store, cart) {
         debugger;
         this.root = root;
         this.store = store;
-        this.onClick = () => this.addItemToCart();
+        this.onClick = () => this.addALLItemToCart();
         this.init();
+        this.cart = cart;
     }
+
 
     init() {
         this.root.addEventListener('click', this.onClick);
     }
 
     destroy() {
+        this.root.removeEventListener("click", this.onClick);
+    }
+
+    addALLItemToCart() {
+
+        // hint: you can use `dataset` to access data attributes
+        // See passing data from HTML to JavaScript from course note
+        let cartItems = this.store.cartItems || [];
+        // TODO: replace with actual item
+        var newITem = true;
+        for (var i = 0; i < cartItems.length; i++) {
+
+            var existingItem = cartItems[i].name;
+            if (this.root.dataset.name === existingItem) {
+                var quantity = Number(this.root.dataset.quantity);
+                cartItems[i].quantity += quantity;
+                newITem = false;
+            }
+        }
+
+
+        console.log(this.root.dataset);
+        if (newITem) {
+           
+            cartItems.push({
+            name: this.root.dataset.name,
+            price: this.root.dataset.price,
+            description: this.root.dataset.description,
+            imageURL: this.root.dataset.imageURL,
+            ingredient: this.root.dataset.ingredient,
+            quantity: this.root.dataset.quantity
+               
+
+            });
+        }
+        console.log(cartItems);
+        this.store.cartItems = cartItems;
+        this.cart.render();
     }
 
     addItemToCart() {
@@ -254,7 +286,7 @@ class StatusTable {
 
 class Inventory {
     constructor(root, store) {
-       
+
         this.root = root;
         this.store = store;
         this.init();
@@ -275,7 +307,7 @@ class Inventory {
         debugger;
         var newList = this.store.cartItems;
         if (newList != null) {
-           // var newList = this.store.cartItems;
+            // var newList = this.store.cartItems;
             var compare = itemid.name;
             debugger;
             for (var i = 0; i < newList.length; i++) {
@@ -283,7 +315,7 @@ class Inventory {
                     newList.splice(i, 1);
                 }
             }
-            
+
 
             //Console.log(newList);
 
@@ -296,40 +328,40 @@ class Inventory {
 
     render() {
         // using innerHTML to render inventory listing
-         let tbody = this.root.querySelector('tbody');
-         tbody.innerHTML = '';
-         let cartItems = this.store.cartItems || [];
+        let tbody = this.root.querySelector('tbody');
+        tbody.innerHTML = '';
+        let cartItems = this.store.cartItems || [];
 
-         for (var i = 0; i < cartItems.length; i++) {
+        for (var i = 0; i < cartItems.length; i++) {
 
-             let result = "";
-                result = '<tr>'+
-                            '<td width="400px">'+
-                                '<table cellpadding="10">'+
-                                    '<tr>'+
-                                    '<td><h2><b><u>'+  cartItems[i].name +
-                                    '</u></b></h2></td>'+
-                                    ' </tr>'+
-                                    '<tr>'+
-                                        ' <td> Description: <br/>'+ cartItems[i].description +
-                                        '</td>'+
-                                    ' </tr>'+
-                                    '<tr>'+
-                                        ' <td>Price: $'+ cartItems[i].price +
-                                        '</td>'+
-                                    ' </tr>'+
-                                ' </table>'+
-                            '</td>'+
-                        '<td  style="text-align:center">'+
-                            '<img src="'+ cartItems[i].imageURL +'" width="350px"/></td>' +
-                   '<td style="vertical-align:top">' + this.getIngredientAsHTML(cartItems[i].ingredient)  + '</td>'+
-                   '<td style="text-align:center"> <button class="deleteItem-button" id=' + i + '>Delete</button></td>'+
-                   '</tr>';
+            let result = "";
+            result = '<tr>' +
+                '<td width="400px">' +
+                '<table cellpadding="10">' +
+                '<tr>' +
+                '<td><h2><b><u>' + cartItems[i].name +
+                '</u></b></h2></td>' +
+                ' </tr>' +
+                '<tr>' +
+                ' <td> Description: <br/>' + cartItems[i].description +
+                '</td>' +
+                ' </tr>' +
+                '<tr>' +
+                ' <td>Price: $' + cartItems[i].price +
+                '</td>' +
+                ' </tr>' +
+                ' </table>' +
+                '</td>' +
+                '<td  style="text-align:center">' +
+                '<img src="' + cartItems[i].imageURL + '" width="350px"/></td>' +
+                '<td style="vertical-align:top">' + this.getIngredientAsHTML(cartItems[i].ingredient) + '</td>' +
+                '<td style="text-align:center"> <button class="deleteItem-button" id=' + i + '>Delete</button></td>' +
+                '</tr>';
 
-                    
-             tbody.innerHTML += result;
-               
-         } 
+
+            tbody.innerHTML += result;
+
+        }
 
         let deleteButtons = this.root.querySelectorAll('.deleteItem-button');
         let fakeList = this.store.cartItems;
@@ -337,14 +369,14 @@ class Inventory {
         for (var i = 0; i < deleteButtons.length; i++) {
             let deleteBtn1 = deleteButtons[i];
             let scopedFakeList = fakeList;
-            
-        
+
+
 
             deleteBtn1.addEventListener('click', () => {
 
-               // alert('You are deleting' + this.store.cartItems[0].name);
-                let item =  this.store.cartItems[parseInt(deleteBtn1.id)];
-              
+                // alert('You are deleting' + this.store.cartItems[0].name);
+                let item = this.store.cartItems[parseInt(deleteBtn1.id)];
+
                 this.removeInventItem(item);
                 // debugger;
                 // // splice takes two arguments first being the index, second being
@@ -358,8 +390,7 @@ class Inventory {
 
     }
 
-    getIngredientAsHTML(ingredientList)
-    {
+    getIngredientAsHTML(ingredientList) {
         let ingList = ingredientList.split(",");
         let result = "<ul>"
         for (var i = 0; i < ingList.length; i++) {
@@ -369,7 +400,7 @@ class Inventory {
         return result;
     }
 
-    
+
 }
 
 
@@ -386,29 +417,81 @@ class Menu {
 
     render() {
         // TODO: render a list of food menu from store using innerHTML
+        let tbody = this.root.querySelector('tbody');
+        tbody.innerHTML = '';
+        let cartItems = this.store.cartItems || [];
+
+       console.log(cartItems);
+        for (var i = 0; i < cartItems.length; i++) {
+
+            let result = "";
+            result = '<tr>' +
+                '<td width="400px">' +
+                '<table cellpadding="10">' +
+                '<tr>' +
+                '<td><h2><b><u>' + cartItems[i].name +
+                '</u></b></h2></td>' +
+                ' </tr>' +
+                '<tr>' +
+                ' <td> Description: <br/>' + cartItems[i].description +
+                '</td>' +
+                ' </tr>' +
+                '<tr>' +
+                ' <td>Price: $' + cartItems[i].price +
+                '</td>' +
+                ' </tr>' +
+                ' </table>' +
+                '</td>' +
+                '<td  style="text-align:center">' +
+                '<img src="' + cartItems[i].imageURL + '" width="350px"/></td>' +
+                '<td style="vertical-align:top">' + this.getMenuIngredientAsHTML(cartItems[i].ingredient) + '</td>' +
+                '<td style="text-align:center"> <button class="checkout-button" id=' + i + '  data-name="' + cartItems[i].name + '" data-price="' + cartItems[i].price + '" data-quantity=1>Add to cart</button></td>' +
+                '</tr>';
+
+
+            tbody.innerHTML += result;
+
+        }
+
+        let checkoutButtons = document.querySelectorAll('.checkout-button');
+        if (checkoutButtons && checkoutButtons.length) {
+            for (var i = 0; i < checkoutButtons.length; i++) {
+                new CheckoutButton(checkoutButtons[i], this.store, this.cart);
+            }
+        }
+    }
+
+     getMenuIngredientAsHTML(ingredientList) {
+        let ingList = ingredientList.split(",");
+        let result = "<ul>"
+        for (var i = 0; i < ingList.length; i++) {
+            result += '<li>' + ingList[i] + '</li>';
+        }
+        result += "</ul>";
+        return result;
     }
 }
 
 class CreateFood {
     constructor(root, store) {
-      
+
         this.root = root; // root should be the container of the form itself
         this.store = store;
-       
+
         this.init();
     }
 
     removeAllCartItems() {
-         var newList = this.store.cartItems;
-          
-            for (var i = 0; i < this.items.length; i++) {
-               
-                    newList.splice(i, 1);
-                
-            }
-            this.store.cartItems = newList;
-            this.items = newList;
-       
+        var newList = this.store.cartItems;
+
+        for (var i = 0; i < this.items.length; i++) {
+
+            newList.splice(i, 1);
+
+        }
+        this.store.cartItems = newList;
+        this.items = newList;
+
     }
 
     init() {
@@ -429,18 +512,17 @@ class CreateFood {
                 this.AddIngredients();
             });
         }
-         
+
     }
 
-    AddIngredients()
-    {
-         var currentIngredient = document.getElementById("listIngredient").innerHTML;
-         var newIngredient = document.getElementById('itmIngr').value;
-         
-              currentIngredient +=  newIngredient + ',';
-        
-         document.getElementById("listIngredient").innerHTML = currentIngredient;
-         document.getElementById('itmIngr').value ="";
+    AddIngredients() {
+        var currentIngredient = document.getElementById("listIngredient").innerHTML;
+        var newIngredient = document.getElementById('itmIngr').value;
+
+        currentIngredient += newIngredient + ',';
+
+        document.getElementById("listIngredient").innerHTML = currentIngredient;
+        document.getElementById('itmIngr').value = "";
     }
 
     createFood() {
@@ -448,13 +530,13 @@ class CreateFood {
         // to get their values before creating a new food
         // after creating a new food item, add it to store
         let cartItems = this.store.cartItems || [];
- 
+
         var name = document.getElementById('itmName').value;
         var description = document.getElementById('itmDescription').value;
         var imageURL = document.getElementById('itmImage').value;
         var price = document.getElementById('itmPrice').value;
         var ingredient = document.getElementById("listIngredient").innerHTML;
-// currentIngredient.substring(0,currentIngredient.length-1);
+        // currentIngredient.substring(0,currentIngredient.length-1);
         var existItem = false;
         for (var i = 0; i < cartItems.length; i++) {
             if (name.toLowerCase() === cartItems[i].name.toLowerCase()) {
@@ -468,7 +550,8 @@ class CreateFood {
                 price: price,
                 description: description,
                 imageURL: imageURL,
-                ingredient: ingredient.substring(0,ingredient.length-1) 
+                ingredient: ingredient.substring(0, ingredient.length - 1),
+                quantity : 1
             });
             document.getElementById('itmName').value = "";
             document.getElementById('itmDescription').value = "";
@@ -478,14 +561,13 @@ class CreateFood {
 
             alert("Item added successfully!");
         }
-        else
-        {
+        else {
             alert("This item is already exist!");
         }
 
         console.log(cartItems);
         this.store.cartItems = cartItems;
- 
+
     }
 }
 // DOMContentLoaded event will allow us to run the following function when
@@ -510,11 +592,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (cart) {
         new Cart(cart, store);
     }
-    if (checkoutButtons && checkoutButtons.length) {
-        for (var i = 0; i < checkoutButtons.length; i++) {
-            new CheckoutButton(checkoutButtons[i], store);
-        }
-    }
+    // if (checkoutButtons && checkoutButtons.length) {
+    //     for (var i = 0; i < checkoutButtons.length; i++) {
+    //         new CheckoutButton(checkoutButtons[i], store);
+    //     }
+    // }
 
 
     let createFood = document.querySelector('#create_new_item');
@@ -524,7 +606,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let inventory = document.querySelector('#inventory_table');
     if (inventory) {
-       
+
         new Inventory(inventory, store);
+    }
+
+    let menu = document.querySelector('#menu_table');
+    if (menu) {
+        new Menu(menu, store, cart);
     }
 });

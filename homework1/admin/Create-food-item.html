@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Create-food-item</title>
+    <link href="../app.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="../app.js"></script>
+
+
+</head>
+
+<body>
+    <div style="max-width: 80%; margin: 0px auto">
+
+        <header>
+            <section class="container">
+                <img class="img" src="https://static.pexels.com/photos/51115/restaurant-wine-glasses-served-51115.jpeg" />
+                <h1 class="hdFont">Princy's Restaurant </h1>
+                <span class="fill"></span>
+                <nav>
+
+                    <a href="../menu.html">Customer Home</a> |
+                    <a href="Create-food-item.html">Add New Food Item</a> |
+                    <a href="Inventory.html">Inventory</a>
+                </nav>
+            </section>
+            <hr />
+        </header>
+        <h2>Food Item Information</h2>
+        <hr/>
+        <table cellpadding="10" class="MenuTbl">
+            <form id="create_new_item">
+                <table width="80%">
+                    <tr>
+                        <td style="vertical-align: top;">
+                            <table cellpadding="10">
+                                <tr>
+                                    <td>
+                                        Item Name:
+                                    </td>
+                                    <td>
+                                        <input type="text" name="name" id="itmName"></input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Image Link:
+                                    </td>
+                                    <td>
+                                        <input type="text" name="imageURL" id="itmImage"></input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Description:
+                                    </td>
+                                    <td>
+                                        <textarea id="itmDescription" name="description"></textarea>
+                                       
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Price:
+                                    </td>
+                                    <td>
+                                        <input id="itmPrice" name="price"  ></input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan=2>
+
+                                        <button id="addItemBtn" type="button">Add Item</button>
+
+                                    </td>
+
+                                </tr>
+                            </table>
+
+                        </td>
+                        <td style="vertical-align: top;">
+                            Add Ingredient:
+                            <input type="text" name="ingredient" id="itmIngr"></input>
+                            <button id="addIngBtn" type="button">Add Ingredient</button>
+
+                            <div id="listIngredient">
+
+                            </div>
+                        </td>
+                        </td>
+                    </tr>
+                </table>
+
+            </form>
+
+        </table>
+        <footer>
+            <p>
+                &copy; 2017 Princy's Restaurent Inc., All Rights Reserved
+            </p>
+        </footer>
+    </div>
+
+</body>
+
+</html>

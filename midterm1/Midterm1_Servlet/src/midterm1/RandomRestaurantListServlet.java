@@ -21,6 +21,16 @@ public class RandomRestaurantListServlet extends HttpServlet {
 		   List<RestaurantList> entries = new ArrayList<>();
 		   ArrayList<Integer> desRat = new ArrayList<Integer>();
 		   ArrayList<Integer> tstRate = new ArrayList<Integer>();
+		   
+		   int[] temp = {1,2,3,4,5};
+		   for(int x = 1; x <= 15 ; x++)
+		   {
+			   int rnd = new Random().nextInt(temp.length);
+			   desRat.add(temp[rnd]);
+			   tstRate.add(temp[rnd]);
+		   }
+		   
+		   
 		   for(int i = 1 ; i <= 22 ; i++)
 		   {  
 			   String num = "";
@@ -72,7 +82,7 @@ public class RandomRestaurantListServlet extends HttpServlet {
 		
 		if(result > 0)
 		{
-			return result = (result / 5);
+			return result = (int)(result / list.size());
 		}
 		else
 		{

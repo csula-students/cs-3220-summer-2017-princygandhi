@@ -123,7 +123,7 @@ public class RandomRestaurantServlet extends HttpServlet {
 
 	public int getAvgRating(ArrayList<Integer> list)
 	{
-		int result = 0;
+		double result = 0;
 		for(int i = 0; i <list.size() ; i++)
 		{
 			result += list.get(i);
@@ -131,7 +131,7 @@ public class RandomRestaurantServlet extends HttpServlet {
 		
 		if(result > 0)
 		{
-			return result = (result / 5);
+			return (int) (result = (result / list.size()));
 		}
 		else
 		{

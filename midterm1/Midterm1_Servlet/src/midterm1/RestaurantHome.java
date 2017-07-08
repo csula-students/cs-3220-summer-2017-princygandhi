@@ -30,8 +30,8 @@ public class RestaurantHome extends HttpServlet {
 		out.println("<table width='100%' style='text-align:center'>");
 		out.println("<tr><td colspan='3' style='height:200px'><h1>What's for lunch? </h1></td></tr>");
 		out.println("<tr><td style='text-align:right;padding-right:10%;'><input type='button' onclick=\"location.href='./RandomRestaurantServlet';\" value='Feeling Lucky' /></td>"); 
-		out.println("<td style='text-align:center;padding-left:10%;padding-right:10%;'><input type='button' onclick=\"location.href='./suggest/restaurants/random?id="+rendomRestaurent.getId()+"';\" value='Select Random Restaurant' /></td>"); 
-		out.println("<td style='text-align:left;padding-left:10%;'><input type='button' onclick=\"location.href='./suggest/restaurants/random/list';\" value='See all list' /></td></tr>"); 
+		out.println("<td style='text-align:center;padding-left:10%;padding-right:10%;'><input type='button' onclick=\"location.href='./random?id="+rendomRestaurent.getId()+"';\" value='Select Random Restaurant' /></td>"); 
+		out.println("<td style='text-align:left;padding-left:10%;'><input type='button' onclick=\"location.href='./random/list';\" value='See all list' /></td></tr>"); 
 		out.println("</table></div>"); 
 	}
 	

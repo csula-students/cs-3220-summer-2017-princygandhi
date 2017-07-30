@@ -1,6 +1,6 @@
 package lab4pkg;
 
-class FoodItem {
+public class FoodItem {
 	public  final int id;
 	public final String name;
 	public final String description;

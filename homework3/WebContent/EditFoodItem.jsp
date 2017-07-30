@@ -7,23 +7,23 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Edit Food Item</title>
 <link rel="stylesheet" href="../app_pri_lab4.css" type="text/css" />
 </head>
 <body>
 <div style="max-width: 80%; margin: 0px auto">
 	<adminHeader:AdminHeader/>
-	<h2>Create New FoodItem</h2>
+	<h2>Edit FoodItem</h2>
 	<form method="post">
 	<label for="name">Name: </label> <br>
-	<input name="name" id="name" type="text"><br>
+	<input name="name" id="name" type="text" value="${item.name}"><br>
 	<label for="url">Image Link: </label><br>
-	<input name="imgurl" id="url" type="text"><br>
+	<input name="imgurl" id="url" type="text" value="${item.imgURL}"><br>
 	<label for="description">Description: </label><br>
-	<input name="description" id="description"></input> <br>
+	<input name="description" id="description" type="text" value="${item.description}"></input> <br>
 	<label for="price">Price: </label><br>
-	<input name="price" id="price" type="text"><br>
-	<button>Add Item</button>
+	<input name="price" id="price" type="text" value="${item.price}"><br>
+	<button>Update</button>
 	</form>
 		
 </div>	

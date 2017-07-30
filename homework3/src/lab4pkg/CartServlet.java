@@ -13,26 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class CartServlet
  */
-@WebServlet("/restaurant/order")
+@WebServlet("/lab4/order")
 public class CartServlet extends HttpServlet {
 	 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		ServletContext context = getServletContext();
 		List<Order> orderEntries = (List<Order>) getServletContext().getAttribute("orderEntries");
-		
-		String removeItem =request.getParameter("removeItem");
-		if(removeItem!=null)
-		{
-			for(Order entry : orderEntries)
-			{
-				if(entry.getId() == Integer.parseInt(removeItem))
-				{
-					orderEntries.remove(entry);
-				}
-			}
-		}
-		
+			
 		context.setAttribute("orderEntries", orderEntries);
 		
 		request.setAttribute("orderEntries", orderEntries);
@@ -47,9 +35,7 @@ public class CartServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		List<Order> orderEntries = (List<Order>) getServletContext().getAttribute("orderEntries");
-		request.setAttribute("orderEntries", orderEntries);
-		request.getRequestDispatcher("../statuses.jsp").forward(request, response);
+		response.sendRedirect("./OrderStatus");
 	}
 
 }

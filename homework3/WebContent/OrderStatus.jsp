@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-<%@ taglib prefix="customerheader" uri="WEB-INF/customer-header.tld"%>      
+<%@ taglib prefix="adminHeader" uri="WEB-INF/admin-header.tld"%>    
     
     
 <!DOCTYPE html>
@@ -13,8 +13,9 @@
 <link rel="stylesheet" href="../app_pri_lab4.css" type="text/css" />
 </head>
 <body>
+<form   method="post" action="#">
 <div style="max-width: 80%; margin: 0px auto">
-	<customerheader:CustomerHeader/>
+	<adminHeader:AdminHeader/>
 	
 		<h2>Order Food</h2>
         <table cellpadding="10" border="1" width="100%">
@@ -22,18 +23,16 @@
         
 				<c:forEach items = "${orderEntries}" var="item">
 				<tr>
-				<td>${item.foodItems.getName()}</td>
-				<td>${item.getQty()}</td>
-				<td>${item.getTotal()}</td>
-			    <td>${item.getCustomerName()}</td>
-			    <td><form name="status" method="get" action="#">
-       <select>
-           <option>In Queue</option>
+				<td>${item.getOrderName()}</td>
+				<td>${item.qty}</td>
+				<td>${item.total}</td>
+			    <td>${item.customerName}  <input type='hidden' name='itemId' value="${item.id}"></td>
+			    <td>
+       <select name="ostatus_${item.id}">
+           <option>In Progress</option>  
            <option>Completed</option>
-           <option>In Progress</option>   
-           
        </select>
-    </form> 
+     
 </td>
 				</tr>
 				</c:forEach>
@@ -42,5 +41,6 @@
 	
 <button>Update Statuses</button>
 	</div>
+	</form>
 </body>
 </html>

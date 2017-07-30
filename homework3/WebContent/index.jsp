@@ -1,15 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-<%@ taglib prefix="customerheader" uri="WEB-INF/customer-header.tld"%>      
-    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
+<%@ taglib prefix="customerheader" uri="WEB-INF/customer-header.tld"%>        
     
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Manu</title>
+<title>Menu</title>
 <link rel="stylesheet" href="../app_pri_lab4.css" type="text/css" />
 </head>
 <body>
@@ -22,12 +21,12 @@
         
 				<c:forEach items = "${items}" var="item">
 				<tr>
-				<td>${item.getName()}</td>
-				<td>${item.getDescription()}</td>
-				<td> <img src="${item.getImgURL()}" width="300"/></td>
-			    <td>${item.getPrice()}</td>
-			    <td> <input type='text' width='10px' name='fitem_id_" + ${item.getId()} + "' value='0' /> 
-			         <input type='hidden' name='fid_"+ ${item.getId()} +"' value="${item.getId()}">
+				<td>${item.name}</td>
+				<td>${item.description}</td>
+				<td> <img src="${item.imgURL}" width="300"/></td>
+			    <td>${item.price}</td>
+			    <td> <input type='text' width='10px' name='fitem_id_${item.id}' value='0' /> 
+			         <input type='hidden' name='fid_${item.id}' value="${item.id}">
 			    </td> 
 				</tr>
 				</c:forEach>

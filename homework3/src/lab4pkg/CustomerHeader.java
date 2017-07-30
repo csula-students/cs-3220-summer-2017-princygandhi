@@ -17,9 +17,10 @@ public class CustomerHeader extends SimpleTagSupport {
 				out.print("<h1 class='hdFont'>Princy's Restaurant </h1>");
 				out.print(" <span class='fill'></span>");
 					out.print("<nav>");
-						out.print("<a href='./foods'>Menu</a> |");
-						out.print("<a href='./create'>Order</a> |");
-						out.print("<a href='./order-status'>Order Status</a>");
+						out.print("<a href='./restaurant'>Menu</a> |");
+						out.print("<a href='./order'>Order</a> |");
+						out.print("<a href='./OrderStatus'>Order Status</a> |");
+						out.print("<a href='../admin/foods'>Admin View</a>");
 					out.print("</nav>");
 			out.print("</section>");
 			out.print("<hr />");

@@ -16,16 +16,19 @@
 <div style="max-width: 80%; margin: 0px auto">
 	<customerheader:CustomerHeader/>
 	
-		<h2>Order Food</h2>
+		<h2>Your Order</h2>
         <table cellpadding="10" border="1" width="100%">
-          <thead><tr><th>Item</th><th>Qty</th><th>Total</th><th>Customer</th></tr></thead>
+          <thead><tr><th>Item</th><th>Qty</th><th>Total</th><th>Customer</th><th>Status</th></tr></thead>
         
 				<c:forEach items = "${orderEntries}" var="item">
 				<tr>
-				<td>${item.foodItems.getName()}</td>
-				<td>${item.getQty()}</td>
-				<td>${item.getTotal()}</td>
-			    <td>${item.getCustomerName()}</td>
+				<td>${item.getOrderName()}</td>
+				<td>${item.qty}</td>
+				<td>${item.total}</td>
+			    <td>${item.customerName}</td>
+			    <td>
+			   		${item.ostatus}
+			    </td>
 				</tr>
 				</c:forEach>
         </table>

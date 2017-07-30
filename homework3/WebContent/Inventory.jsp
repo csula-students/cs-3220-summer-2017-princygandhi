@@ -19,15 +19,17 @@
         <table cellpadding="10" border="1" width="100%">
           <thead><tr><th>Item</th><th>Description</th><th>Image</th><th>Price</th><th>Edit/Delete</th></tr></thead>
         
-				<c:forEach items = "${items}" var="item">
+		  <c:forEach items = "${entries}" var="item">
 				<tr>
-				<td>${item.getName()}</td>
-				<td>${item.getDescription()}</td>
-				<td> <img src="${item.getImgURL()}" width="300"/></td>
-			    <td>${item.getPrice()}</td>
-				<td><form method="get"> <button name="removeItem" value="${item.getId()}">Delete</button></form></td>
+				<td>${item.name}</td>
+				<td>${item.description}</td>
+				<td> <img src="${item.imgURL}" width="300"/></td>
+			    <td>${item.price}</td>
+				<td>
+				   <a href='/edit?id=${item.id}'>Edit</a> <a href='./DeleteFoodItem?id=${item.id}'>Delete</a>
+				</td>
 				</tr>
-				</c:forEach>
+			</c:forEach>
         </table>
 
 </div>

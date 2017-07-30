@@ -33,7 +33,7 @@ public class CreateFoodAdminServlet extends HttpServlet {
 				entries.add(new FoodItem(entries.size(), 
 						                 request.getParameter("name"),
 						                 request.getParameter("description"),
-						                 request.getParameter("imgURL"),
+						                 request.getParameter("imgurl"),
 						                 Double.parseDouble(request.getParameter("price"))
 						                 ));
 				getServletContext().setAttribute("entries", entries);

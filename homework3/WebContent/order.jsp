@@ -22,11 +22,11 @@
         
 				<c:forEach items = "${orderEntries}" var="item">
 				<tr>
-				<td>${item.foodItems.getName()}</td>
-				<td>${item.getQty()}</td>
-				<td>${item.getTotal()}</td>
-			    <td>${item.getCustomerName()}</td>
-				<td><form method="get"> <button name="removeItem" value="${item.getId()}">Delete</button></form></td>
+				<td>${item.getOrderName()}</td>
+				<td>${item.qty}</td>
+				<td>${item.total}</td>
+			    <td>${item.customerName}</td>
+				<td> <a href='./deleteItem?id=${item.id}'>Delete</a></td>
 				</tr>
 				</c:forEach>
         </table>

@@ -19,7 +19,8 @@ public class AdminHeader extends SimpleTagSupport {
 					out.print("<nav>");
 						out.print("<a href='./foods'>Inventory</a> |");
 						out.print("<a href='./create'>Add Food Item</a> |");
-						out.print("<a href='./order-status'>Order Status</a>");
+						out.print("<a href='./AdminOrderStatus'>Order Status</a> |");
+						out.print("<a href='../lab4/restaurant'>Customer View</a>");
 					out.print("</nav>");
 			out.print("</section>");
 			out.print("<hr />");

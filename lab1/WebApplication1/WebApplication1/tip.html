@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Tip Calculator</title>
+    <script src="tip.js" type="text/javascript"></script>
+    <link href="tip.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="mainDiv">
+        <table cell-padding="10" width="100%">
+            <tr>
+                <td colspan="2">
+                    <h1>Tip Calculator</h1>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table cell-padding="10" width="100%">
+                        <tr>
+                            <td>
+                                Bill:
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                $ <input id="bill_Amt" type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Tip:
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input id="tip_percentage" type="text"> %
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table cell-padding="10" width="100%">
+                        <tr>
+                            <td>
+                                Tip:
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span id="tip_amount"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Bill Total:
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span id="bill_amount"></span>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button id="calc-button">Calculate</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>
